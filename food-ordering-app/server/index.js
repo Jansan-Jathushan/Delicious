@@ -2,11 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const db = require('./db');
+const connectDB = require('./db');
 
 const app = express();
 const productRouter = require('./routes/productRouter');
-const userRouter = require('./routes/productRouter');
+const userRouter = require('./routes/userRouter');
 
 const Order = require('./models/orderModel');
 
@@ -85,15 +85,17 @@ app.post('/webhook', async (req, res) => {
     res.sendStatus(200);
   });
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+connectDB();
+
 
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to Food Ordering"});
 });
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// const PORT = process.env.PORT || 8080;
+app.listen(8000, () => {
+    console.log(`Server is running on port ${8000}`);
 });
 app.use('/api/', productRouter);
 app.use('/api/', userRouter);

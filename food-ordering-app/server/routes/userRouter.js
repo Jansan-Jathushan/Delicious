@@ -5,6 +5,8 @@ const router = express.Router()
 const User = require('../models/userModel')
 
 router.post('/create-user', (req, res) => {
+    console.log('Request received at /create-user');
+    console.log('Request body:', req.body);
     const user = new User({
         name: req.body.name,
         email: req.body.email,
